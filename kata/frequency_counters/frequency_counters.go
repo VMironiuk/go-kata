@@ -29,23 +29,23 @@ func isValidAnagram(s1 string, s2 string) bool {
 	if len(s1) != len(s2) {
 		return false
 	}
-	var freqCounts1 = make(map[rune]int)
-	var freqCounts2 = make(map[rune]int)
-	for _, val := range s1 {
-		freqCounts1[val]++
+
+	lookup := make(map[rune]int)
+
+	for _, value := range s1 {
+		lookup[value]++
 	}
-	for _, val := range s2 {
-		freqCounts2[val]++
-	}
-	for key, val := range freqCounts1 {
-		var freqCounts2Val int
+
+	for _, value := range s2 {
+		var count int
 		var ok bool
-		if freqCounts2Val, ok = freqCounts2[key]; !ok {
+		if count, ok = lookup[value]; !ok {
 			return false
 		}
-		if val != freqCounts2Val {
+		if count == 0 {
 			return false
 		}
+		lookup[value]--
 	}
 	return true
 }
